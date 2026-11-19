@@ -1,0 +1,7 @@
+{
+  "name":"dsh-qq-agent", "version":"3.6.1", "private":true, "type":"module",
+  "engines":{"node":">=22.19.0"},
+  "license":"AGPL-3.0-only",
+  "scripts":{"start":"node build/start-local.mjs","test":"node bridge/selftest.mjs && node --test bridge/regression-v36.mjs && node bridge/runtime-regression-v36.mjs && node --test bridge/regression-v361.mjs && node bridge/http-regression-v361.mjs"},
+  "dependencies":{"undici":"7.30.2","playwright":"1.65.0"}
+}

@@ -1,0 +1,42 @@
+services:
+  dsh-onebot:
+    build:
+      context: .
+      dockerfile: build/Dockerfile
+    image: ${QQ_AGENT_IMAGE:-dsh-qq-agent:3.6.1-r2}
+    container_name: dsh-onebot
+    restart: unless-stopped
+    env_file: .env
+    environment:
+      TZ: Asia/Shanghai
+      WORKDIR: /workspace
+      WEB_PORT: 3081
+      PUBLIC_BASE: http://dsh-onebot:3081
+      ONEBOT_WS: ${ONEBOT_WS:-ws://napcat:3001}
+      MEMORY_DIR: /workspace/memory
+      SETTINGS_FILE: /workspace/settings.json
+      SESSIONS_FILE: /workspace/sessions.json
+      AGENT_SESSIONS_FILE: /workspace/sessions-agent.json
+      DSH_HOME: /var/lib/whalenest
+      PATCH_FILE: /var/lib/whalenest/profiles/headless/cordis.patch.yml
+    ports:
+      - "${WEB_BIND:-127.0.0.1}:${WEB_PORT:-3081}:3081"
+    volumes:
+      - ./data:/var/lib/whalenest
+      - ./workspace:/workspace
+      - ./bridge:/opt/hand:ro
+    stop_grace_period: 20s
+    security_opt:
+      - no-new-privileges:true
+    healthcheck:
+      test: ["CMD", "node", "-e", "fetch('http://127.0.0.1:3081/health').then(r=>process.exit(r.ok?0:1)).catch(()=>process.exit(1))"]
+      interval: 30s
+      timeout: 5s
+      retries: 3
+    networks:
+      - default
+      - napcat
+networks:
+  napcat:
+    external: true
+    name: ${NAPCAT_NETWORK:-napcat}
