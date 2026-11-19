@@ -1,0 +1,15 @@
+[server]
+host="0.0.0.0"
+port=3001
+token="change-me-please"
+allow_debug_inject=false
+
+[driver]
+type="fake"
+
+[bot]
+self_id=10000
+nickname="微信桥测试"
+
+[idmap]
+path="data/idmap.json"

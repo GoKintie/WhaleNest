@@ -1,0 +1,30 @@
+services:
+  wx-onebot:
+    build: .
+    image: wx-onebot:latest
+    container_name: wx-onebot
+    restart: unless-stopped
+    environment:
+      TZ: Asia/Shanghai
+    volumes:
+      - type: bind
+        source: ./config.toml
+        target: /app/config.toml
+        read_only: true
+        bind:
+          create_host_path: false
+      - wechat-data:/app/data
+    ports:
+      - "127.0.0.1:${WECHAT_BRIDGE_PORT:-3301}:3001"
+    networks:
+      napcat:
+        aliases:
+          - wechat-linux
+
+networks:
+  napcat:
+    external: true
+    name: ${NAPCAT_NETWORK:-napcat}
+
+volumes:
+  wechat-data:

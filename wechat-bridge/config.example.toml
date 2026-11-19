@@ -1,0 +1,31 @@
+[server]
+host = "0.0.0.0"
+port = 3001
+token = "change-me-please"
+heartbeat_sec = 5
+
+[bot]
+self_id = 10000
+nickname = "微信测试"
+
+[driver]
+type = "fake"
+
+[idmap]
+path = "idmap.json"
+
+[[groups]]
+id = 1001
+name = "测试群A"
+
+[[groups]]
+id = 1002
+name = "测试群B"
+
+[[users]]
+id = 2001
+name = "小明"
+
+[[users]]
+id = 2002
+name = "小红"

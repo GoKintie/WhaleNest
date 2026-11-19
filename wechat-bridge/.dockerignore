@@ -1,0 +1,17 @@
+**
+!requirements.txt
+!main.py
+!idmap.py
+!media_auth.py
+!msgs.py
+!onebot.py
+!drivers/
+!drivers/*.py
+!voice/
+!voice/*.py
+!voice/LICENSE
+!voice/UPSTREAM.md
+!voice/assets/
+!voice/assets/voice_start.png
+!voice/assets/voice_send.png
+!voice/assets/voice_cancel.png
